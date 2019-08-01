@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import Button, { IconButton } from '../Button';
+import { IconButton } from '../Button';
 import PropertyControl from './PropertyControl';
 import Cell from './Cell';
 import Label from './Label';
@@ -41,12 +41,12 @@ const removeLastComponentFromList = (list, onChange) =>
 const addNewComponentToList = (list, newComponent, onChange) =>
   onChange([...list, newComponent]);
 
-const updateComponentPropertyValue = (
+const updateComponentPropertyValue = ({
   components,
   componentIndex,
   propertyKey,
   onChange,
-) => propertyValue => {
+}) => propertyValue => {
   components[componentIndex] = {
     ...components[componentIndex],
     [propertyKey]: propertyValue,
@@ -58,7 +58,6 @@ const updateComponentPropertyValue = (
 const ComponentControlHeader = ({
   label,
   value,
-  options,
   onChange,
   newComponent,
   type,
@@ -86,12 +85,6 @@ const ComponentControlHeader = ({
   </tr>
 );
 
-const ComponentTitle = ({ value, component, onChange }) => (
-  <Row justify="space-between">
-    <Label disabled={false}>Component</Label>
-  </Row>
-);
-
 export default ({
   type,
   value,
@@ -105,18 +98,20 @@ export default ({
       <ComponentControlHeader
         type={type}
         value={value}
-        options={options}
         newComponent={availablePropsForKey.newComponent}
         label={label}
         onChange={onChange}
       />
 
-      {value.map((component, i) => (
-        <ComponentRow last={value.length === i + 1} key={i}>
+      {value.map((component, componentIndex) => (
+        <ComponentRow
+          last={value.length === componentIndex + 1}
+          key={componentIndex}
+        >
           <ComponentCell colSpan={2}>
             <Table>
               <tbody>
-                {Object.keys(options).map((prop, i) => {
+                {Object.keys(options).map((prop, optionIndex) => {
                   const disabled =
                     options[prop].disabledWhen &&
                     options[prop].disabledWhen(component);
@@ -127,16 +122,16 @@ export default ({
                   return (
                     <PropertyControl
                       type={options[prop].type}
-                      key={i}
+                      key={optionIndex}
                       label={options[prop].label}
                       value={component[prop]}
                       options={componentOptions}
-                      onChange={updateComponentPropertyValue(
-                        [...value],
-                        i,
-                        prop,
+                      onChange={updateComponentPropertyValue({
+                        components: [...value],
+                        componentIndex: componentIndex,
+                        propertyKey: prop,
                         onChange,
-                      )}
+                      })}
                       disabled={disabled}
                     />
                   );
