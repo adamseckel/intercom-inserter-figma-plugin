@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "allowUmdGlobalAccess": true,
+    "lib": ["esnext", "dom"],
+    "jsx": "react"
+  }
+}
