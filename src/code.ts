@@ -5,17 +5,19 @@
 // You can access browser APIs in the <script> tag inside "ui.html" which has a
 // full browser enviroment (see documentation).
 
+// import createRadioButtonGroup from './generators/radioButtonGroup';
+
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, { height: 500, width: 400 });
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
-figma.ui.onmessage = async ({ type, values, count }) => {
+figma.ui.onmessage = async ({ type, component, props }) => {
   // One way of distinguishing between different types of messages sent from
   // your HTML page is to use an object with a "type" property like this.
   if (type === 'create-component') {
-    await createComponent(values);
+    await createComponent(component, props);
   }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
@@ -23,10 +25,13 @@ figma.ui.onmessage = async ({ type, values, count }) => {
   figma.closePlugin();
 };
 
-const createComponent = async ({ component, ...properties }) => {
+const createComponent = async (component, properties) => {
   switch (component) {
     case 'button':
       await createButton(properties);
+      break;
+    case 'radioButtonGroup':
+      // await createRadioButtonGroup(properties);
       break;
     default:
       break;
@@ -130,9 +135,8 @@ const createButtonLabel = (text, font, props) => {
 };
 
 const createButton = async props => {
-  const fonts = await figma.listAvailableFontsAsync();
-  await figma.loadFontAsync({ family: 'Roboto', style: 'Regular' });
-  const font = await figma.loadFontAsync({
+  console.log({ props });
+  await figma.loadFontAsync({
     family: 'SF Pro Text',
     style: 'Medium',
   });

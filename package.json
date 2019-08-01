@@ -26,5 +26,9 @@
   "devDependencies": {
     "react-svg-loader": "^3.0.3",
     "svg-inline-loader": "^0.8.0"
+  },
+  "scripts": {
+    "watch": "npx webpack --mode=development --watch",
+    "build": "npx webpack --mode=production"
   }
 }

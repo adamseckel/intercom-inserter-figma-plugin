@@ -54,6 +54,13 @@ const StickyFooter = styled('div')`
   z-index: 999;
 `;
 
+const insertComponent = (component, props) => {
+  return parent.postMessage(
+    { pluginMessage: { type: 'create-component', component, props } },
+    '*',
+  );
+};
+
 export default ({}) => {
   let [component, setComponent] = useState('radioButtonGroup');
   let [componentProps, setComponentProps] = useState(defaults);
@@ -94,7 +101,13 @@ export default ({}) => {
         <Divider />
         <Space />
         <Container>
-          <Button>Insert</Button>
+          <Button
+            onClick={() =>
+              insertComponent(component, componentProps[component])
+            }
+          >
+            Insert
+          </Button>
         </Container>
         <Space />
       </StickyFooter>
