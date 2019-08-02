@@ -62,15 +62,18 @@ export const Options = {
 export interface Props {
   buttons: ButtonProps[];
   isDisabled?: boolean;
-}
-
-interface RadioButtonProps extends ButtonProps {
-  active?: boolean;
+  activeButtonIndex?: number;
   fullWidth?: boolean;
   hasIcon?: boolean;
 }
 
-const active = (active: RadioButtonProps['active']) =>
+interface RadioButtonProps extends ButtonProps {
+  isActive?: boolean;
+  fullWidth?: boolean;
+  hasIcon?: boolean;
+}
+
+const active = (active: RadioButtonProps['isActive']) =>
   active &&
   css`
     z-index: 3;
@@ -101,7 +104,7 @@ const RadioButton = styled(Button)<RadioButtonProps>`
     z-index: 3;
   }
 
-  ${props => active(props.active)}
+  ${props => active(props.isActive)}
 `;
 
 export default ({
@@ -120,7 +123,7 @@ export default ({
         hasIcon={hasIcon}
         buttonType={ButtonType['Secondary']}
         isDisabled={isDisabled}
-        active={activeButtonIndex == i}
+        isActive={activeButtonIndex == i}
         fullWidth={fullWidth}
       />
     ))}

@@ -32,7 +32,7 @@ export interface Props {
   isSubtle?: boolean;
   hasIcon?: boolean;
   icon?: any;
-  active?: boolean;
+  isActive?: boolean;
   className?: string;
 }
 
@@ -190,7 +190,7 @@ export default ({
     inline
     justify="start"
     align="center"
-    className={`${className} ${props.active && 'active'}`}
+    className={`${className} ${props.isActive && 'active'}`}
     {...props}
   >
     {props.hasIcon && <InterfaceIcon icon={icon} />} <span>{label}</span>

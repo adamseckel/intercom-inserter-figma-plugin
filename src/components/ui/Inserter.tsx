@@ -8,7 +8,7 @@ import Space from './Space';
 import Button from './Button';
 import * as Core from '../embercomCore';
 
-const components = ['button', 'radioButtonGroup'];
+const components = ['button', 'radioButtonGroup', 'tabControl', 'tab'];
 
 const Select = styled('select')`
   width: 100%;
@@ -34,11 +34,15 @@ const makeDefaults = options =>
 const defaults = {
   button: makeDefaults(Core.ButtonOptions),
   radioButtonGroup: makeDefaults(Core.RadioButtonGroupOptions),
+  tabControl: makeDefaults(Core.TabControlOptions),
+  tab: makeDefaults(Core.TabOptions),
 };
 
 const options = {
   button: Core.ButtonOptions,
   radioButtonGroup: Core.RadioButtonGroupOptions,
+  tabControl: Core.TabControlOptions,
+  tab: Core.TabOptions,
 };
 
 const StickyContainer = styled('div')`
@@ -62,9 +66,9 @@ const insertComponent = (component, props) => {
 };
 
 export default ({}) => {
-  let [component, setComponent] = useState('radioButtonGroup');
+  let [component, setComponent] = useState('tab');
   let [componentProps, setComponentProps] = useState(defaults);
-
+  console.log({ componentProps });
   return (
     <>
       <Container>

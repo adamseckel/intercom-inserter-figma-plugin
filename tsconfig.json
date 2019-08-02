@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
     "allowUmdGlobalAccess": true,
-    "lib": ["esnext", "dom"],
-    "jsx": "react"
+    "lib": ["es2015", "es2017", "esnext", "dom"],
+    "jsx": "react",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "target": "es2015",
+    "sourceMap": true
   }
 }

@@ -16,6 +16,10 @@ const Preview = ({ component, componentProps }) => {
       return <Core.Button {...componentProps} />;
     case 'radioButtonGroup':
       return <Core.RadioButtonGroup {...componentProps} />;
+    case 'tabControl':
+      return <Core.TabControl {...componentProps} />;
+    case 'tab':
+      return <Core.Tab {...componentProps} />;
   }
 };
 

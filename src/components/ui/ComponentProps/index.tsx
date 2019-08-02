@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import PropertyControl from './PropertyControl';
 import ComponentControl from './ComponentControl';
-import Space from '../Space';
 
 type Option = {
   label: string;
