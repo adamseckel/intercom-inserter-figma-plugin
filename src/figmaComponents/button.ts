@@ -198,16 +198,20 @@ export const createButton = ({ asComponent = true, ...props }: Props) => {
     createStyledText({ props, styles, font })(text),
   ];
 
-  const width = styledText.width + (props.hasIcon ? 16 + 3 : 0) + 12 * 2;
-  const textWidth = styledText.width + 12 * 2;
+  const totalWidth = styledText.width + (props.hasIcon ? 16 + 3 : 0) + 12 * 2;
 
-  resizeNodes(styledFrame, styledRect)(width);
-  resizeNodes(styledText)(textWidth);
+  styledText.x =
+    (totalWidth - (styledText.width + (props.hasIcon ? 16 + 3 : 0))) / 2 +
+    16 +
+    3;
+
+  resizeNodes(styledFrame, styledRect)(totalWidth);
+  resizeNodes(styledText)(styledText.width);
 
   appendNodesToFrame(styledRect, styledText)(styledFrame);
 
   if (props.hasIcon) {
-    const x = width / 2 - styledText.width / 2;
+    const x = (totalWidth - (styledText.width + 3 + 16)) / 2;
     const styledIcon = createIcon({ props, styles, x })(svg);
 
     appendNodesToFrame(styledIcon)(styledFrame);
