@@ -163,7 +163,7 @@ const Button = styled(RowButton)<Omit<Props, 'label'>>`
   border-color: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 5px 12px 7px;
-  display: inline-block;
+  /* display: inline-block; */
   cursor: pointer;
   transition: box-shadow linear 40ms;
   outline: 0;

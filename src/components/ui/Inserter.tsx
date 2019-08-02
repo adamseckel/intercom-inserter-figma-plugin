@@ -8,7 +8,13 @@ import Space from './Space';
 import Button from './Button';
 import * as Core from '../embercomCore';
 
-const components = ['button', 'radioButtonGroup', 'tabControl', 'tab'];
+const components = ['button', 'radioButtonGroup', 'tabControl'];
+const componentsLabelMap = {
+  button: 'Button',
+  radioButtonGroup: 'Radio Button group',
+  tabControl: 'Tab Control',
+  tab: 'Tab',
+};
 
 const Select = styled('select')`
   width: 100%;
@@ -52,8 +58,10 @@ const StickyContainer = styled('div')`
 `;
 
 const StickyFooter = styled('div')`
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   background: var(--white);
   z-index: 999;
 `;
@@ -66,9 +74,9 @@ const insertComponent = (component, props) => {
 };
 
 export default ({}) => {
-  let [component, setComponent] = useState('tab');
+  let [component, setComponent] = useState('button');
   let [componentProps, setComponentProps] = useState(defaults);
-  console.log({ componentProps });
+
   return (
     <>
       <Container>
@@ -76,13 +84,15 @@ export default ({}) => {
         <Select value={component} onChange={e => setComponent(e.target.value)}>
           {components.map(c => (
             <option key={c} value={c}>
-              {c}
+              {componentsLabelMap[c]}
             </option>
           ))}
         </Select>
         <Space />
       </Container>
+
       <Divider />
+
       <StickyContainer>
         <ComponentPreview
           component={component}
@@ -90,7 +100,9 @@ export default ({}) => {
         />
         <Divider />
       </StickyContainer>
+
       <Space />
+
       <ComponentProps
         setComponentProps={value => {
           return setComponentProps({
@@ -101,6 +113,7 @@ export default ({}) => {
         componentProps={componentProps[component]}
         availableProps={options[component]}
       />
+
       <StickyFooter>
         <Divider />
         <Space />

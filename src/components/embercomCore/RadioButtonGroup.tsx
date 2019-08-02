@@ -33,11 +33,6 @@ export const Options = {
     type: 'boolean',
     default: false,
   },
-  fullWidth: {
-    label: 'Full width',
-    type: 'boolean',
-    default: false,
-  },
   hasIcon: {
     label: 'Has icon',
     type: 'boolean',
@@ -63,13 +58,11 @@ export interface Props {
   buttons: ButtonProps[];
   isDisabled?: boolean;
   activeButtonIndex?: number;
-  fullWidth?: boolean;
   hasIcon?: boolean;
 }
 
 interface RadioButtonProps extends ButtonProps {
   isActive?: boolean;
-  fullWidth?: boolean;
   hasIcon?: boolean;
 }
 
@@ -87,7 +80,6 @@ const active = (active: RadioButtonProps['isActive']) =>
 
 const RadioButton = styled(Button)<RadioButtonProps>`
   z-index: 2;
-  flex-grow: ${props => (props.fullWidth ? 1 : 0)};
   border-radius: 0;
 
   &:not(:first-of-type) {
@@ -111,10 +103,9 @@ export default ({
   buttons = defaultButtons,
   isDisabled,
   hasIcon = true,
-  fullWidth = false,
   activeButtonIndex = 0,
 }) => (
-  <Row>
+  <Row justify="start">
     {buttons.map((button, i) => (
       <RadioButton
         key={i}
@@ -124,7 +115,6 @@ export default ({
         buttonType={ButtonType['Secondary']}
         isDisabled={isDisabled}
         isActive={activeButtonIndex == i}
-        fullWidth={fullWidth}
       />
     ))}
   </Row>

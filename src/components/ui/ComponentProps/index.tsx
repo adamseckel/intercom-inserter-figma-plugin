@@ -25,6 +25,7 @@ const Table = styled('table')`
 
 const Container = styled(Table)`
   padding: 0 12px;
+  margin-bottom: 60px;
 `;
 
 const TableRow = ({

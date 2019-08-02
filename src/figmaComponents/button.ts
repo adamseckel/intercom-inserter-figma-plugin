@@ -143,6 +143,7 @@ const createStyledText = ({ props, styles, font }) => (text: TextNode) => {
   text.textAlignVertical = 'CENTER';
   text.autoRename = true;
   text.fontName = font;
+  text.fontSize = 14;
   text.fills = [styles.color];
 
   return text;

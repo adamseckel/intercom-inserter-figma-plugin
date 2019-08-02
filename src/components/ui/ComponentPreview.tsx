@@ -4,10 +4,14 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Row } from 'emotion-box';
 
+const Overflow = styled('div')`
+  overflow: hidden;
+`;
 const PreviewContainer = styled('div')`
   padding: 18px;
   background: var(--gray-lightest);
   width: 100%;
+  overflow: scroll;
 `;
 
 const Preview = ({ component, componentProps }) => {
@@ -24,9 +28,11 @@ const Preview = ({ component, componentProps }) => {
 };
 
 export default props => (
-  <PreviewContainer>
-    <Row align="center" justify="center">
-      <Preview {...props} />
-    </Row>
-  </PreviewContainer>
+  <Overflow>
+    <PreviewContainer>
+      <Row align="center" justify="start">
+        <Preview {...props} />
+      </Row>
+    </PreviewContainer>
+  </Overflow>
 );
