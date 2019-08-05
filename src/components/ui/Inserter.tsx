@@ -7,7 +7,7 @@ import Divider from './Divider';
 import Space from './Space';
 import Button from './Button';
 import * as Core from '../embercomCore';
-
+import { Options } from './ComponentProps';
 const components = [
   'button',
   'radioButtonGroup',
@@ -35,7 +35,7 @@ const Container = styled('div')`
   padding: 0 12px;
 `;
 
-const makeDefaults = options =>
+const makeDefaults = (options: Options) =>
   Object.keys(options).reduce((defaults, prop) => {
     return {
       ...defaults,

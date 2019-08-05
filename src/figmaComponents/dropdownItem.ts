@@ -2,6 +2,11 @@ import { Props as TabProps } from '../components/embercomCore/Tab';
 import * as colors from './colors';
 import { appendNodesToFrame, resizeNodes } from './utils';
 
+// background rect
+// label text
+// count text
+// description text
+
 const tabStyles = ({ isActive }) => ({
   fill: { type: 'SOLID', color: colors.white },
   color: { type: 'SOLID', color: isActive ? colors.blue : colors.black },

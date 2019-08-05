@@ -14,13 +14,24 @@ const PreviewContainer = styled('div')`
   overflow: scroll;
 `;
 
-const Preview = ({ component, componentProps }) => {
+const Preview = ({
+  component,
+  componentProps,
+}: {
+  component: string;
+  componentProps: { [key: string]: string };
+}) => {
   let Component = Core[component];
 
   return <Component {...componentProps} />;
 };
 
-export default props => (
+interface Props {
+  component: string;
+  componentProps: { [key: string]: string };
+}
+
+export default (props: Props) => (
   <Overflow>
     <PreviewContainer>
       <Row align="center" justify="start">

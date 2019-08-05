@@ -30,6 +30,16 @@ const Container = styled(Table)`
   margin-bottom: 60px;
 `;
 
+interface TableRowProps {
+  type: string;
+  value: any;
+  options: any[] | { [key: string]: string };
+  onChange: any;
+  label: string;
+  disabled: boolean;
+  availablePropsForKey: Option;
+}
+
 const TableRow = ({
   type,
   value,
@@ -38,7 +48,7 @@ const TableRow = ({
   label,
   disabled,
   availablePropsForKey,
-}) => {
+}: TableRowProps) => {
   switch (type) {
     case 'components':
       return (
@@ -94,7 +104,7 @@ export default ({
               value={componentProps[prop]}
               options={options}
               disabled={disabled}
-              onChange={value =>
+              onChange={(value: any) =>
                 setComponentProps({ ...componentProps, [prop]: value })
               }
             />
