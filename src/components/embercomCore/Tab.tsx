@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+import { Options } from '../ui/ComponentProps';
 
 import { css } from '@emotion/core';
 import { Row } from 'emotion-box';
@@ -14,7 +15,7 @@ const isActive = (isActive: boolean) =>
     }
   `;
 
-const Tab = styled(Row)`
+const StyledTab = styled(Row)`
   height: 36px;
   border-bottom: 2px solid transparent;
   color: var(--black);
@@ -49,7 +50,7 @@ export interface Props {
   isActive?: boolean;
 }
 
-export const Options = {
+export const options: Options = {
   isActive: {
     label: 'Active',
     type: 'boolean',
@@ -67,9 +68,13 @@ export const Options = {
   },
 };
 
-export default ({ label, attribute, isActive }: Props) => (
-  <Tab inline isActive={isActive}>
+const Tab = ({ label, attribute, isActive }: Props) => (
+  <StyledTab inline isActive={isActive}>
     <Label> {label}</Label>
     {attribute && <Attribute> ({attribute})</Attribute>}
-  </Tab>
+  </StyledTab>
 );
+
+Tab.options = options;
+
+export default Tab;

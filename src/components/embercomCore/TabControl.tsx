@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Row } from 'emotion-box';
-import Tab, { Props as TabProps, Options as TabOptions } from './Tab';
+import Tab, { Props as TabProps } from './Tab';
+import { Options } from '../ui/ComponentProps';
 
 const defaultTabs = [
   {
@@ -13,11 +14,11 @@ const defaultTabs = [
   },
 ];
 
-export const Options = {
+export const options: Options = {
   activeTabIndex: {
     label: 'Active tab index',
     type: 'select',
-    options: props => (props.tabs || defaultTabs).map((_, i) => i),
+    options: ({ tabs }: Props) => tabs.map((_, i) => i),
     default: 0,
   },
   tabs: {
@@ -28,8 +29,8 @@ export const Options = {
       attribute: '',
     },
     options: () => ({
-      label: TabOptions['label'],
-      attribute: TabOptions['attribute'],
+      label: Tab.options['label'],
+      attribute: Tab.options['attribute'],
     }),
     default: defaultTabs,
   },
@@ -40,7 +41,7 @@ export interface Props {
   activeTabIndex?: number;
 }
 
-export default ({ tabs = defaultTabs, activeTabIndex = 0 }: Props) => (
+const TabControl = ({ tabs = defaultTabs, activeTabIndex = 0 }: Props) => (
   <Row justify="start">
     {tabs.map((tab, i) => (
       <Tab
@@ -52,3 +53,7 @@ export default ({ tabs = defaultTabs, activeTabIndex = 0 }: Props) => (
     ))}
   </Row>
 );
+
+TabControl.options = options;
+
+export default TabControl;

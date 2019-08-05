@@ -8,12 +8,18 @@ import Space from './Space';
 import Button from './Button';
 import * as Core from '../embercomCore';
 
-const components = ['button', 'radioButtonGroup', 'tabControl'];
+const components = [
+  'button',
+  'radioButtonGroup',
+  'tabControl',
+  'dropdownGroup',
+];
 const componentsLabelMap = {
   button: 'Button',
   radioButtonGroup: 'Radio Button group',
   tabControl: 'Tab Control',
   tab: 'Tab',
+  dropdownGroup: 'Dropdown Group',
 };
 
 const Select = styled('select')`
@@ -37,19 +43,21 @@ const makeDefaults = options =>
     };
   }, {});
 
-const defaults = {
-  button: makeDefaults(Core.ButtonOptions),
-  radioButtonGroup: makeDefaults(Core.RadioButtonGroupOptions),
-  tabControl: makeDefaults(Core.TabControlOptions),
-  tab: makeDefaults(Core.TabOptions),
-};
+const defaults = components.reduce(
+  (defaults, componentName) => ({
+    ...defaults,
+    [componentName]: makeDefaults(Core[componentName].options),
+  }),
+  {},
+);
 
-const options = {
-  button: Core.ButtonOptions,
-  radioButtonGroup: Core.RadioButtonGroupOptions,
-  tabControl: Core.TabControlOptions,
-  tab: Core.TabOptions,
-};
+const options = components.reduce(
+  (defaults, componentName) => ({
+    ...defaults,
+    [componentName]: Core[componentName].options,
+  }),
+  {},
+);
 
 const StickyContainer = styled('div')`
   position: sticky;

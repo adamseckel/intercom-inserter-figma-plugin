@@ -3,14 +3,16 @@ import styled from '@emotion/styled';
 import PropertyControl from './PropertyControl';
 import ComponentControl from './ComponentControl';
 
-type Option = {
+export type Option = {
   label: string;
-  type: 'select' | ' boolean' | 'components' | 'text';
+  type: 'select' | 'boolean' | 'components' | 'text';
   default: any;
-  options?: (options: any[] | Object | null) => any[];
-  disabledWhen?: (properties: Object) => boolean;
+  options?: (options: any[] | { [key: string]: any }) => any[] | {};
+  disabledWhen?: (properties: { [key: string]: any }) => boolean;
   newComponent?: any;
 };
+
+export type Options = { [key: string]: Option };
 
 interface Props {
   componentProps: { [key: string]: any };

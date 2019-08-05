@@ -1,12 +1,9 @@
-import Button, {
-  Options as ButtonOptions,
-  Props as ButtonProps,
-  ButtonType,
-} from './Button';
+import Button, { Props as ButtonProps, ButtonType } from './Button';
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Row } from 'emotion-box';
+import { Options } from '../ui/ComponentProps';
 
 const defaultButtons = [
   {
@@ -21,11 +18,11 @@ const defaultButtons = [
   },
 ];
 
-export const Options = {
+export const options: Options = {
   activeButtonIndex: {
     label: 'Active button index',
     type: 'select',
-    options: props => (props.buttons || defaultButtons).map((_, i) => i),
+    options: ({ buttons }: Props) => buttons.map((_, i) => i),
     default: 0,
   },
   isDisabled: {
@@ -46,9 +43,9 @@ export const Options = {
       icon: 'conversation',
       hasIcon: true,
     },
-    options: () => ({
-      icon: ButtonOptions['icon'],
-      label: ButtonOptions['label'],
+    options: (props: Props) => ({
+      icon: Button.options['icon'],
+      label: Button.options['label'],
     }),
     default: defaultButtons,
   },
@@ -99,12 +96,12 @@ const RadioButton = styled(Button)<RadioButtonProps>`
   ${props => active(props.isActive)}
 `;
 
-export default ({
+const RadioButtonGroup = ({
   buttons = defaultButtons,
   isDisabled,
   hasIcon = true,
   activeButtonIndex = 0,
-}) => (
+}: Props) => (
   <Row justify="start">
     {buttons.map((button, i) => (
       <RadioButton
@@ -119,3 +116,7 @@ export default ({
     ))}
   </Row>
 );
+
+RadioButtonGroup.options = options;
+
+export default RadioButtonGroup;

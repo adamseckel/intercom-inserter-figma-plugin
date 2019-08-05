@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Row } from 'emotion-box';
 import InterfaceIcon from './InterfaceIcon';
+import { Options } from '../ui/ComponentProps';
 
 export enum ButtonType {
   Primary = 'primary',
@@ -36,7 +37,7 @@ export interface Props {
   className?: string;
 }
 
-export const Options = {
+const options: Options = {
   label: { label: 'Label', type: 'text', default: 'Save' },
   buttonType: {
     label: 'Type',
@@ -53,14 +54,14 @@ export const Options = {
     label: 'Icon name',
     type: 'select',
     options: () => icons,
-    disabledWhen: ({ hasIcon }) => !hasIcon,
+    disabledWhen: ({ hasIcon }: Props) => !hasIcon,
     default: 'ab-test',
   },
-  isDisabled: { label: 'Disabled', type: 'boolean' },
+  isDisabled: { label: 'Disabled', type: 'boolean', default: false },
   isSubtle: {
     label: 'Subtle',
     type: 'boolean',
-    disabledWhen: ({ buttonType }) => buttonType.includes('primary'),
+    disabledWhen: ({ buttonType }: Props) => buttonType.includes('primary'),
     default: false,
   },
 };
@@ -154,7 +155,7 @@ const disabled = (isDisabled: Props['isDisabled']) => css`
 
 const RowButton = Row.withComponent('button');
 
-const Button = styled(RowButton)<Omit<Props, 'label'>>`
+const StyledButton = styled(RowButton)<Omit<Props, 'label'>>`
   font-size: 14px;
   line-height: 18px;
   font-weight: 500;
@@ -180,13 +181,13 @@ const Button = styled(RowButton)<Omit<Props, 'label'>>`
     `}
 `;
 
-export default ({
+const Button = ({
   label = 'Save',
   icon = 'ab-test',
   className,
   ...props
 }: Props) => (
-  <Button
+  <StyledButton
     inline
     justify="start"
     align="center"
@@ -194,5 +195,9 @@ export default ({
     {...props}
   >
     {props.hasIcon && <InterfaceIcon icon={icon} />} <span>{label}</span>
-  </Button>
+  </StyledButton>
 );
+
+Button.options = options;
+
+export default Button;
