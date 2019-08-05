@@ -14,7 +14,6 @@ const components = [
   'radioButtonGroup',
   'tabControl',
   'dropdownGroup',
-  'dropdownItem',
   'select',
 ];
 
