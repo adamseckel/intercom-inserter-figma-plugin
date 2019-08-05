@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Core from '../embercomCore';
+import Core from '../embercomCore';
 import styled from '@emotion/styled';
 import { Row } from 'emotion-box';
 
@@ -14,13 +14,7 @@ const PreviewContainer = styled('div')`
   overflow: scroll;
 `;
 
-const Preview = ({
-  component,
-  componentProps,
-}: {
-  component: string;
-  componentProps: { [key: string]: string };
-}) => {
+const Preview = ({ component, componentProps }: Props) => {
   let Component = Core[component];
 
   return <Component {...componentProps} />;
@@ -28,7 +22,7 @@ const Preview = ({
 
 interface Props {
   component: string;
-  componentProps: { [key: string]: string };
+  componentProps: Record<string, any>;
 }
 
 export default (props: Props) => (

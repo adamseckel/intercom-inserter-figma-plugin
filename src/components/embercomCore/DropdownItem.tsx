@@ -2,9 +2,19 @@ import styled from '@emotion/styled';
 import * as React from 'react';
 
 import { css } from '@emotion/core';
-import { Row } from 'emotion-box';
+import { Row, Column } from 'emotion-box';
 import InterfaceIcon from './InterfaceIcon';
 import { Options } from '../ui/ComponentProps';
+
+const reqSvgs = require.context(
+  '../../core/svgs/interface-icons/standard',
+  true,
+  /\.svg$/,
+);
+
+const icons = reqSvgs
+  .keys()
+  .map(path => path.replace('.svg', '').replace('./', ''));
 
 const isActive = (isActive: boolean) =>
   isActive &&
@@ -28,14 +38,16 @@ const hover = () => css`
 
 interface ItemProps extends Pick<Props, 'isActive' | 'isDisabled'> {
   children?: any;
+  isItem?: boolean;
 }
 
-const Item = styled('div')<ItemProps>`
+const Item = styled(Row)<ItemProps>`
   padding: 6px 12px;
   color: var(--black);
   opacity: ${props => (props.isDisabled ? 0.5 : 1)};
+  white-space: nowrap;
   ${props => isActive(props.isActive)};
-  ${props => !props.isDisabled && hover()}
+  ${props => !props.isDisabled && !props.isItem && hover()}
 `;
 
 const Label = styled('span')`
@@ -59,12 +71,19 @@ const IconContainer = styled('div')`
   margin-left: 10px;
 `;
 
+const ItemIconContainer = styled(Row)`
+  margin-right: 10px;
+`;
+
 export interface Props {
   label: string;
   isActive?: boolean;
   description?: string;
   count?: number;
   isDisabled?: boolean;
+  icon?: string;
+  hasIcon?: boolean;
+  isItem?: boolean;
 }
 
 export const options: Options = {
@@ -93,6 +112,18 @@ export const options: Options = {
     type: 'boolean',
     default: false,
   },
+  hasIcon: {
+    label: 'Has icon',
+    type: 'boolean',
+    default: false,
+  },
+  icon: {
+    label: 'Icon name',
+    type: 'select',
+    options: (props: Props) => icons,
+    disabledWhen: ({ hasIcon }: Props) => !hasIcon,
+    default: 'ab-test',
+  },
 };
 
 const DropdownItem = ({
@@ -101,18 +132,36 @@ const DropdownItem = ({
   description,
   count,
   isDisabled,
+  icon = 'ab-test',
+  hasIcon = false,
+  isItem = false,
 }: Props) => (
-  <Item isActive={isActive} isDisabled={isDisabled}>
-    <Row justify="start">
-      <Label> {label}</Label>
-      {count && <Count>{count}</Count>}
-      {isActive && (
-        <IconContainer>
-          <InterfaceIcon icon="check" />
-        </IconContainer>
-      )}
-    </Row>
-    {description && <Description> {description}</Description>}
+  <Item
+    justify="start"
+    align="start"
+    inline
+    isActive={isActive}
+    isDisabled={isDisabled}
+    isItem={isItem}
+  >
+    {hasIcon && (
+      <ItemIconContainer inline align="start" justify="start">
+        <InterfaceIcon icon={icon} />
+      </ItemIconContainer>
+    )}
+    <Column justify="start" align="start">
+      <Row justify="start">
+        <Label className="label"> {label}</Label>
+        {count && <Count>{count}</Count>}
+        <Row grow />
+        {isActive && (
+          <IconContainer>
+            <InterfaceIcon icon="check" />
+          </IconContainer>
+        )}
+      </Row>
+      {description && <Description> {description}</Description>}
+    </Column>
   </Item>
 );
 

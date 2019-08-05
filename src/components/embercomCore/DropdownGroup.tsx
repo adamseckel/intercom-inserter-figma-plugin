@@ -1,22 +1,21 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { Options } from '../ui/ComponentProps';
-import DropdownItem, {
-  Props as Item,
-  options as ItemOptions,
-} from './DropdownItem';
+import DropdownItem, { Props as Item } from './DropdownItem';
 
 export interface Props {
   items: Item[];
   activeItemIndex?: number;
 }
 
-const defaultItems = [
+const defaultItems: Item[] = [
   {
     label: 'Text',
+    icon: 'ab-test',
   },
   {
     label: 'Number',
+    icon: 'ab-test',
   },
 ];
 
@@ -32,9 +31,10 @@ const options: Options = {
     type: 'components',
     newComponent: {
       label: 'Date',
+      icon: 'ab-test',
     },
     options: (props: Props) => {
-      const options = { ...ItemOptions };
+      const options = { ...DropdownItem.options };
       delete options['isActive'];
 
       return options;

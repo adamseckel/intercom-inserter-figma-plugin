@@ -6,20 +6,26 @@ import ComponentProps from './ComponentProps';
 import Divider from './Divider';
 import Space from './Space';
 import Button from './Button';
-import * as Core from '../embercomCore';
+import Core from '../embercomCore';
 import { Options } from './ComponentProps';
+
 const components = [
   'button',
   'radioButtonGroup',
   'tabControl',
   'dropdownGroup',
+  'dropdownItem',
+  'select',
 ];
+
 const componentsLabelMap = {
   button: 'Button',
   radioButtonGroup: 'Radio Button group',
   tabControl: 'Tab Control',
   tab: 'Tab',
   dropdownGroup: 'Dropdown Group',
+  dropdownItem: 'Dropdown Item',
+  select: 'Select',
 };
 
 const Select = styled('select')`
@@ -84,7 +90,7 @@ const insertComponent = (component, props) => {
 export default ({}) => {
   let [component, setComponent] = useState('button');
   let [componentProps, setComponentProps] = useState(defaults);
-
+  console.log({ componentProps });
   return (
     <>
       <Container>

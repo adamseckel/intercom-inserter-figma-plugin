@@ -39,10 +39,17 @@ export const blue = {
   g: 110 / 255,
   b: 250 / 255,
 };
+
 export const blueDark = {
   r: 5 / 255,
   g: 73 / 255,
   b: 209 / 255,
+};
+
+export const blueLight = {
+  r: 232 / 255,
+  g: 240 / 255,
+  b: 255 / 255,
 };
 
 export const red = {
