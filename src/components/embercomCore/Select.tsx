@@ -71,13 +71,15 @@ const Select = ({ activeItemIndex = 0, isOpen, items, ...props }: Props) => {
           </IconContainer>
         </SelectOpener>
       </div>
-      {isOpen && (
-        <DropdownGroup
-          activeItemIndex={activeItemIndex}
-          items={items}
-          {...props}
-        />
-      )}
+      <div style={{ display: 'inline-block' }}>
+        {isOpen && (
+          <DropdownGroup
+            activeItemIndex={activeItemIndex}
+            items={items}
+            {...props}
+          />
+        )}
+      </div>
     </div>
   );
 };
