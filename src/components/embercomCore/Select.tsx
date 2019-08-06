@@ -5,7 +5,7 @@ import { Options } from '../ui/ComponentProps';
 import InterfaceIcon from './InterfaceIcon';
 import { Row } from 'emotion-box';
 
-import DropdownItem, { Props as Item } from './DropdownItem';
+import DropdownItem from './DropdownItem';
 
 import DropdownGroup, { Props as DropdownGroupProps } from './DropdownGroup';
 
@@ -28,6 +28,7 @@ const IconContainer = styled('div')`
   padding-right: 6px;
 `;
 
+// could be cleaned up by passing props to the opener
 const SelectOpener = styled(Row)`
   border: 1px solid var(--border-shadow-dark);
   border-radius: 4px;
@@ -53,36 +54,37 @@ const SelectOpener = styled(Row)`
     `};
 `;
 
-const Select = ({ activeItemIndex = 0, isOpen, items, ...props }: Props) => {
-  const selectedItem = items[activeItemIndex];
+const InlineBlock = styled('div')`
+  display: inline-block;
+`;
 
-  return (
-    <div>
-      <div style={{ display: 'inline-block' }}>
-        <SelectOpener
-          inline
-          justify="space-between"
-          align="start"
-          isOpen={isOpen}
-        >
-          <DropdownItem {...selectedItem} isItem={true} />
-          <IconContainer>
-            <InterfaceIcon icon="small-down-arrow" />
-          </IconContainer>
-        </SelectOpener>
-      </div>
-      <div style={{ display: 'inline-block' }}>
-        {isOpen && (
-          <DropdownGroup
-            activeItemIndex={activeItemIndex}
-            items={items}
-            {...props}
-          />
-        )}
-      </div>
-    </div>
-  );
-};
+const Select = ({ activeItemIndex = 0, isOpen, items, ...props }: Props) => (
+  <>
+    <InlineBlock>
+      <SelectOpener
+        inline
+        justify="space-between"
+        align="start"
+        isOpen={isOpen}
+      >
+        <DropdownItem {...items[activeItemIndex]} isItem={true} />
+        <IconContainer>
+          <InterfaceIcon icon="small-down-arrow" />
+        </IconContainer>
+      </SelectOpener>
+    </InlineBlock>
+
+    <InlineBlock>
+      {isOpen && (
+        <DropdownGroup
+          activeItemIndex={activeItemIndex}
+          items={items}
+          {...props}
+        />
+      )}
+    </InlineBlock>
+  </>
+);
 
 Select.options = options;
 
